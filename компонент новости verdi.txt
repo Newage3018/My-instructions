@@ -1,0 +1,57 @@
+<?= $f_AdminButtons ?>
+
+<div class='nc_row news-short'>
+
+<?
+if ($cc_settings[Group] == 'date' && $groupHeader = ( $curDep == $f_Date_day ? NULL : $curDep = $f_Date_day )) {
+        ?><h4 class='nc_group'><?= $groupHeader.".".$f_Date_month.".".$f_Date_year ?></h4><?
+}
+if ($cc_settings[Group] == 'month' && $groupHeader = ( $curDep == $f_Date_month ? NULL : $curDep = $f_Date_month )) {
+        ?><h4 class='nc_group'><?= $groupHeader.".".$f_Date_year ?></h4><? } ?>
+
+    <h3 class='news-h3'><?= ($cc_settings[FullLink] == 'title' && ($f_Full_text || $f_ExtLink) ? "<a href='".opt_case($f_Full_text, $fullLink, $f_ExtLink)."'>$f_NewsTitle</a>" : "$f_NewsTitle") ?></h3>
+    <? if ($f_Announce) {
+        ?><p class='nc_announce news-annonce'><?= nc_edit_inline('Announce', $f_RowID, $cc) ?></p><?
+}
+
+if ($f_img1News) {
+        ?><img class='news-one-image' src ="<?= $f_img1News?>"><?
+}
+if ($f_SourceTitle || $f_SourceLink) {
+    ?><div class='nc_source'><span>Источник: </span> <? 
+    if ($f_SourceTitle && $f_SourceLink) {
+        ?> <a href='<?= $f_SourceLink ?>'><?= $f_SourceTitle ?></a><?
+    } else {
+        if (!$f_SourceLink) {
+            echo nc_edit_inline('SourceTitle', $f_RowID, $cc);
+        } else {
+            ?><a href='<?= $f_SourceLink ?>'><?= $f_SourceLink ?></a><?
+        }
+    }
+    ?></div><?
+}
+
+if ($cc_settings[DateStyle] != 'disable') {
+    ?><div class='nc_datetime'><?
+    if ($cc_settings[FullLink] == 'date' && ($f_Full_text || $f_ExtLink)) {
+        ?><a href='<?= ($f_Full_text ? $fullLink : $f_ExtLink) ?>'><?
+    }
+    if ($cc_settings[DateStyle] != 'time') {
+        ?><span class='nc_date'><?= $f_Date_day.".".$f_Date_month.".".$f_Date_year ?> </span><?
+    }
+    if ($cc_settings[DateStyle] != 'date') {
+        ?><span class='nc_time'><?= $f_Date_hours.":".$f_Date_minutes ?> </span><?
+    }
+    if ($cc_settings[FullLink] == 'date' && ($f_Full_text || $f_ExtLink)) {
+        ?></a><?
+    }
+    ?></div><?
+}
+if ($cc_settings[FullLink] == 'more' && ($f_Full_text || $f_ExtLink)) {
+    ?><span class='nc_more'><a href='<?= ($f_Full_text ? $fullLink : $f_ExtLink) ?>'>подробнее...</a></span><?
+}
+if (nc_module_check_by_keyword("comments") && ($cnt = $nc_comments->count($f_RowID))) {
+        ?><span>комментарии и ответы: </span><a href='<?= $fullLink ?>'><?= $cnt ?></a><? 
+} ?>
+
+</div>
