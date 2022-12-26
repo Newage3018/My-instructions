@@ -1,0 +1,98 @@
+Установка Docker в дистрибутиве Ubuntu состоит из 12 шагов. Рассмотрим каждый из них подробно.
+
+1.
+Обновите пакеты:
+
+sudo apt update
+2.
+Установите пакеты, которые необходимы для работы пакетного менеджера apt по протоколу HTTPS:
+
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+3.
+Добавьте GPG-ключ репозитория Docker:
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+4.
+Добавьте репозиторий Docker:
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+5.
+Обновите пакеты:
+
+sudo apt update
+6.
+Переключитесь в репозиторий Docker, чтобы его установить:
+
+apt-cache policy docker-ce
+В терминале должна появиться подобная информация с версией Docker:
+Как установить Docker на Ubuntu 1
+
+7.
+Установите Docker:
+
+sudo apt install docker-ce
+8.
+Проверьте работоспособность программы:
+
+sudo systemctl status docker
+В терминале должна появиться информация о том, что Docker активен:
+Как установить Docker на Ubuntu 1
+Docker install Ubuntu
+
+9.
+Чтобы использовать утилиту docker, нужно добавить ваше имя пользователя в группу Docker. Для этого введите в терминале команду:
+
+sudo usermod -aG docker ${user}
+Где user — имя пользователя.
+
+10.
+Введите:
+
+su - ${user}
+Где user — имя пользователя.
+
+11.
+Введите пароль пользователя, когда его запросит терминал.
+12.
+Проверьте доступ к образам Docker:
+
+docker run hello-world
+Если вы увидите сообщение «Hello from Docker!», то всё установлено верно.
+
+Готово, вы установили Docker в Ubuntu. Теперь вы можете использовать утилиту docker.
+
+Как работать с утилитой docker
+Синтаксис docker выглядит следующим образом:
+
+docker опции команда аргументы
+Чтобы посмотреть все доступные опции и команды, введите в терминале:
+
+docker
+Как установить Docker на Ubuntu 2
+
+Как установить Docker на Ubuntu 3
+
+Популярные команды docker
+Найти и посмотреть список доступных образов:
+docker search поисковый-запрос
+Например, команда docker search ubuntu выведет список доступных образов из репозитория Ubuntu.
+
+Загрузить образ:
+docker pull название-образа
+Например, docker pull ubuntu
+
+Посмотреть список загруженных образов:
+docker images
+Запустить контейнер:
+docker run -i -t название-образа
+Например, docker run -i -t ubuntu
+
+Посмотреть активные контейнеры:
+docker ps имя-контейнера
+Запустить остановленный контейнер:
+docker start имя-контейнера
+Остановить запущенный контейнер:
+docker stop имя-контейнера
+Удалить контейнер:
+docker rm имя-контейнера
+Итак, вы узнали про образы и контейнеры, научились устанавливать Docker на Ubuntu и познакомились с основными командами для работы в утилите docker.
